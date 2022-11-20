@@ -1,24 +1,67 @@
 import sys
 
+import pandas as pd
+import numpy as np
+import pickle
+from sqlalchemy import create_engine
+
+
+from sklearn.ensemble import RandomForestClassifier, AdaBoostClassifier
+from sklearn.feature_extraction.text import CountVectorizer, TfidfTransformer
+from sklearn.pipeline import Pipeline, FeatureUnion
+from sklearn.metrics import confusion_matrix, classification_report, accuracy_score
+from sklearn.model_selection import train_test_split
+from sklearn.multioutput import MultiOutputClassifier
+from sklearn.model_selection import GridSearchCV
+
+import nltk
+nltk.download(['punkt', 'wordnet','stopwords','omw-1.4','averaged_perceptron_tagger'])
+
+from text_utils import tokenize, StartingVerbExtractor
+
+
 
 def load_data(database_filepath):
-    pass
+    engine = create_engine('sqlite:///'+database_filepath)
+    df = pd.read_sql_table(
+        "DisasterResponseTable",
+        con=engine
+        )
+    X = df.message.values
+    Y = df.iloc[:,4:]
+    category_names = Y.columns
+    return X, Y, category_names
 
 
-def tokenize(text):
-    pass
+
 
 
 def build_model():
-    pass
+    pipeline = Pipeline([
+        ('features', FeatureUnion([
+
+            ('text_pipeline', Pipeline([
+                ('vect', CountVectorizer(tokenizer=tokenize)),
+                ('tfidf', TfidfTransformer())
+            ])),
+
+            ('starting_verb', StartingVerbExtractor())
+        ])),
+
+        ('clf', MultiOutputClassifier(AdaBoostClassifier()))
+    ])
+    return pipeline
 
 
 def evaluate_model(model, X_test, Y_test, category_names):
-    pass
+    y_pred = model.predict(X_test)
+    y_pred = pd.DataFrame(y_pred, columns=category_names)
+    print(classification_report(Y_test.values, y_pred.values,target_names=category_names))
 
 
 def save_model(model, model_filepath):
-    pass
+    with open(model_filepath, 'wb') as file:
+        pickle.dump(model, file)
 
 
 def main():
