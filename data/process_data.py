@@ -1,16 +1,43 @@
 import sys
-
+import pandas as pd
+from sqlalchemy import create_engine
 
 def load_data(messages_filepath, categories_filepath):
-    pass
+    #read csv data
+    messages = pd.read_csv(messages_filepath)
+    categories = pd.read_csv(categories_filepath)
+    #merge dataframes
+    df = pd.merge(messages.drop_duplicates(),categories,on=["id"])
+    #split category values into separate columns
+    categories = categories["categories"].str.split(";",expand=True)
+    row = categories.iloc[0]
+    category_colnames = row.apply(lambda name: name[:-2])
+    categories.columns = category_colnames
+    #convert values to numeric type
+    for column in categories:
+        # set each value to be the last character of the string
+        categories[column] = categories[column].apply(lambda val: val[-1])
+
+        # convert column from string to numeric
+        categories[column] = categories[column].astype(int)
+    #merge transformed categories with whole dataframe
+    df = df.drop(["categories"],axis=1)
+    df = pd.concat([df,categories],axis=1)
+
+    return df
 
 
 def clean_data(df):
-    pass
+    #remove duplicates, useless column with only one value and values of 2 for related column
+    df = df.drop_duplicates()
+    df = df.drop(["child_alone"],axis=1)
+    df = df[df.related != 2]
+    return df
 
 
 def save_data(df, database_filename):
-    pass  
+    engine = create_engine('sqlite:///'+database_filename)
+    df.to_sql('DisasterResponseTable', engine, index=False)
 
 
 def main():
