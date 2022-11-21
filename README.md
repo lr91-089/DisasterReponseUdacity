@@ -2,7 +2,7 @@
 
 ### Introduction
 
-This webapp analyzes incoming messages with a machine learning algorithm in case of disaster events to classify them regarding 36 different rubrics. The algorithm helps the response team to forward the message faster to the right recipient and improves the disaster response operations. This project was done in connection with my Udacity NanoDegree in DataScience, which I could complete within the Bosch AI Talent Accelerator Program.
+This webapp analyzes incoming messages with a machine learning algorithm in case of disaster events to classify them regarding 36 different rubrics. The algorithm helps the response team to forward the message faster to the right recipient/team/section and improves the disaster response operations. This project was done in connection with my Udacity NanoDegree in DataScience, which I could complete within the Bosch AI Talent Accelerator Program. The data set is from [Appen](https://appen.com/)(formally Figure 8) and contains real data sent during a disaster.
 
 ### Project Components
 
@@ -60,22 +60,22 @@ This webapp analyzes incoming messages with a machine learning algorithm in case
 
 ### Project File Structure
 
-1. app
+1. ```app```
 	* templates
     	* go.html
     	* master.html
-    * run.py
-2. data
+    * ```run.py```
+2. ```data```
 	* DisasterResponse.db
-    * ETL Pipeline Preparation.ipynb
+    * ```ETL Pipeline Preparation.ipynb```
     * disaster_categories.csv
     * disaster_messages.csv
-    * process_data.py
-3. models
-	* DRAdaBoostclassifier.pkl
-    * ML Pipeline Preparation.ipynb
-    * text_utils.py
-    * train_classifier.py
+    * ```process_data.py```
+3. ```models```
+	* RAdaBoostclassifier.pkl
+    * ```ML Pipeline Preparation.ipynb```
+    * ```text_utils.py```
+    * ```train_classifier.py```
     
 The first folder containts the python code for the flask web app and the html templates.
 
