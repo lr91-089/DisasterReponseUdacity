@@ -32,7 +32,7 @@ model = joblib.load("../models/DRAdaBoostclassifier.pkl")
 def index():
     
     # extract data needed for visuals
-    # TODO: Below is an example - modify to extract data for your own visuals
+    # count of messages grouped by genre
     genre_counts = df.groupby('genre').count()['message']
     genre_names = list(genre_counts.index)
     
@@ -42,8 +42,8 @@ def index():
     category_names = category_counts.index
     
     # create visuals
-    # TODO: Below is an example - modify to create your own visuals
     graphs = [
+        #bar plot of the message counts
         {
             'data': [
                 Bar(
@@ -62,6 +62,7 @@ def index():
                 }
             }
         },
+        #bar plot of the distribution of category classes
         {
             'data': [
                 Bar(

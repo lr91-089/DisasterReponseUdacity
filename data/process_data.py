@@ -3,6 +3,12 @@ import pandas as pd
 from sqlalchemy import create_engine
 
 def load_data(messages_filepath, categories_filepath):
+    """Loads and merges the data to one dataframe.
+
+    Keyword arguments:
+    messages_filepath -- the file path of the message csv file
+    categories_filepath -- the file path of the category csv file
+    """
     #read csv data
     messages = pd.read_csv(messages_filepath)
     categories = pd.read_csv(categories_filepath)
@@ -28,14 +34,27 @@ def load_data(messages_filepath, categories_filepath):
 
 
 def clean_data(df):
-    #remove duplicates, useless column with only one value and values of 2 for related column
+    """Cleans the dataframe for the machine learning model.
+
+    Keyword arguments:
+    df -- the data frame to be cleaned
+    """
+    #remove duplicates
     df = df.drop_duplicates()
+    #remove useless column with only one value
     df = df.drop(["child_alone"],axis=1)
+    #remove alls rows with values of 2 for related column from the dataframe
     df = df[df.related != 2]
     return df
 
 
 def save_data(df, database_filename):
+     """Saves the dataframe into a database.
+
+    Keyword arguments:
+    df -- the data frame to be stored
+    database_filename -- the database to store the dataframe
+    """
     engine = create_engine('sqlite:///'+database_filename)
     df.to_sql('DisasterResponseTable', engine, index=False)
 

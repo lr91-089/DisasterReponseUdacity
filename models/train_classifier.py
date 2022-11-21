@@ -22,6 +22,11 @@ from text_utils import tokenize, StartingVerbExtractor
 
 
 def load_data(database_filepath):
+    """Loads the dataframe from a database and creates input and target dataframes.
+
+    Keyword arguments:
+    database_filepath -- the filepath of the database to read the data from
+    """
     engine = create_engine('sqlite:///'+database_filepath)
     df = pd.read_sql_table(
         "DisasterResponseTable",
@@ -37,6 +42,7 @@ def load_data(database_filepath):
 
 
 def build_model():
+    """Returns a machine learning pipeline for an AdaBoostClassifier with custome transformers."""
     pipeline = Pipeline([
         ('features', FeatureUnion([
 
@@ -54,12 +60,26 @@ def build_model():
 
 
 def evaluate_model(model, X_test, Y_test, category_names):
+     """Evaluates the model on the test set and prints a classification report showing the main classification metrics.
+
+    Keyword arguments:
+    model -- the model to evaluate
+    X_test -- the input data of the test set
+    Y_test -- the target values of the test set
+    category_names -- the multi output labels of the target values
+    """
     y_pred = model.predict(X_test)
     y_pred = pd.DataFrame(y_pred, columns=category_names)
     print(classification_report(Y_test.values, y_pred.values,target_names=category_names))
 
 
 def save_model(model, model_filepath):
+    """Stores the trained model into a pickle file.
+
+    Keyword arguments:
+    model -- the model to save
+    model_filepath -- the filepath to save the model
+    """
     with open(model_filepath, 'wb') as file:
         pickle.dump(model, file)
 
