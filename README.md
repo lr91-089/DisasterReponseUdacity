@@ -32,25 +32,24 @@
 
 1. ETL Pipeline
 
-The Python script ```process_data.py``` contains a data cleaning pipeline that:
-  * Loads the messages and categories datasets
-  * Merges the two datasets
-  * Cleans the data
-  * Stores it in a SQLite database
+	The Python script ```process_data.py``` contains a data cleaning pipeline that:
+    * Loads the messages and categories datasets
+    * Merges the two datasets
+    * Cleans the data
+    * Stores it in a SQLite database
 
 2. ML Pipeline
 
-The script ```train_classifier.py``` builds a machine learning pipeline that:
-  * Loads data from the SQLite database
-  * Splits the dataset into training and test sets
-  * Builds a text processing and machine learning pipeline
-  * Trains and tunes a model using GridSearchCV
-  * Outputs results on the test set
-  * Exports the final model as a pickle file
+	The script ```train_classifier.py``` builds a machine learning pipeline that:
+    * Loads data from the SQLite database
+    * Splits the dataset into training and test sets
+    * Builds a text processing and machine learning pipeline
+    * Trains and tunes a model using GridSearchCV
+    * Outputs results on the test set
+    * Exports the final model as a pickle file
 
 3. Flask Web App
-
-The flask web app visualizes a summary of the data in the database created by the ETL pipeline and used the model created by the ML pipeline to make predictions of the categories of a message inputted by the user.
+	The flask web app visualizes a summary of the data in the database created by the ETL pipeline and used the model created by the ML pipeline to make predictions of the categories of a message inputted by the user.
 
 ### Project File Structure
 
