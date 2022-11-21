@@ -1,33 +1,5 @@
 # Disaster Response Pipeline Project
 
-### Instructions for the Udacity Workspace:
-1. Run the following commands in the project's root directory to set up your database and model.
-
-    - To run ETL pipeline that cleans data and stores in database
-        `python data/process_data.py data/disaster_messages.csv data/disaster_categories.csv data/DisasterResponse.db`
-    - To run ML pipeline that trains classifier and saves
-        `python models/train_classifier.py data/DisasterResponse.db models/DRAdaBoostclassifier.pkl`
-
-2. Go to `app` directory: `cd app`
-
-3. Run your web app: `python run.py`
-
-4. Click the `PREVIEW` button to open the homepage
-
-### Instructions to run from personal computer:
-1. Run the following commands in the project's root directory to set up your database and model.
-
-    - To run ETL pipeline that cleans data and stores in database
-        `python data/process_data.py data/disaster_messages.csv data/disaster_categories.csv data/DisasterResponse.db`
-    - To run ML pipeline that trains classifier and saves
-        `python models/train_classifier.py data/DisasterResponse.db models/DRAdaBoostclassifier.pkl`
-
-2. Go to `app` directory: `cd app`
-
-3. Run your web app: `python run.py`
-
-4. Go to 'http://0.0.0.0:3001/' in your browser.
-
 ### Project Components
 
 1. ETL Pipeline
@@ -49,7 +21,38 @@
     * Exports the final model as a pickle file
 
 3. Flask Web App
-	The flask web app visualizes a summary of the data in the database created by the ETL pipeline and used the model created by the ML pipeline to make predictions of the categories of a message inputted by the user.
+	
+    The flask web app visualizes a summary of the data in the database created by the ETL pipeline and used the model created by the ML pipeline to make predictions of the categories of a message inputted by the user.
+
+
+### Instructions for the Udacity Workspace:
+1. Run the following commands in the project's root directory to set up your database and model.
+
+    - To run ETL pipeline that cleans data and stores in database
+        `python data/process_data.py data/disaster_messages.csv data/disaster_categories.csv data/DisasterResponse.db`
+    - To run ML pipeline that trains classifier and saves
+        `python models/train_classifier.py data/DisasterResponse.db models/DRAdaBoostclassifier.pkl`
+
+2. Go to `app` directory: `cd app`
+
+3. Run your web app: `python run.py`
+
+4. Click the `PREVIEW` button to open the homepage
+
+### Instructions to run from personal computer:
+0. Clone the repository with ```git clone https://github.com/lr91-089/DisasterReponseUdacity```
+1. Run the following commands in the project's root directory to set up your database and model.
+
+    - To run ETL pipeline that cleans data and stores in database
+        `python data/process_data.py data/disaster_messages.csv data/disaster_categories.csv data/DisasterResponse.db`
+    - To run ML pipeline that trains classifier and saves
+        `python models/train_classifier.py data/DisasterResponse.db models/DRAdaBoostclassifier.pkl`
+
+2. Go to `app` directory: `cd app`
+
+3. Run your web app: `python run.py`
+
+4. Go to 'http://0.0.0.0:3001/' in your browser.
 
 ### Project File Structure
 
