@@ -2,9 +2,8 @@ import sys
 import json
 import plotly
 import pandas as pd
+import numpy as np
 
-from nltk.stem import WordNetLemmatizer
-from nltk.tokenize import word_tokenize
 
 from flask import Flask
 from flask import render_template, request, jsonify
@@ -18,16 +17,6 @@ from text_utils import tokenize, StartingVerbExtractor
 
 app = Flask(__name__)
 
-def tokenize(text):
-    tokens = word_tokenize(text)
-    lemmatizer = WordNetLemmatizer()
-
-    clean_tokens = []
-    for tok in tokens:
-        clean_tok = lemmatizer.lemmatize(tok).lower().strip()
-        clean_tokens.append(clean_tok)
-
-    return clean_tokens
 
 # load data
 engine = create_engine('sqlite:///../data/DisasterResponse.db')
@@ -46,6 +35,11 @@ def index():
     # TODO: Below is an example - modify to extract data for your own visuals
     genre_counts = df.groupby('genre').count()['message']
     genre_names = list(genre_counts.index)
+    
+    #own visuals
+    #category distribution
+    category_counts = df.iloc[:,4:].sum().sort_values()
+    category_names = category_counts.index
     
     # create visuals
     # TODO: Below is an example - modify to create your own visuals
@@ -67,7 +61,25 @@ def index():
                     'title': "Genre"
                 }
             }
-        }
+        },
+        {
+            'data': [
+                Bar(
+                    x=category_names,
+                    y=category_counts
+                )
+            ],
+
+            'layout': {
+                'title': 'Distribution of Category Classes',
+                'yaxis': {
+                    'title': "Count"
+                },
+                'xaxis' : {
+                'tickangle': 45},
+                'margin' : {'b':210},
+            }
+        },
     ]
     
     # encode plotly graphs in JSON
