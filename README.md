@@ -1,5 +1,9 @@
 # Disaster Response Pipeline Project
 
+### Introduction
+
+This webapp analyzes incoming messages with a machine learning algorithm in case of disaster events to classify them regarding 36 different rubrics. The algorithm helps the response team to forward the message faster to the right recipient and improves the disaster response operations. This project was done in connection with my Udacity NanoDegree in DataScience, which I could complete within the Bosch AI Talent Accelerator Program.
+
 ### Project Components
 
 1. ETL Pipeline

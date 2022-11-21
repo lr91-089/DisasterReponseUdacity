@@ -2,7 +2,6 @@ import re
 import pandas as pd
 from nltk.corpus import stopwords
 from nltk.tokenize import word_tokenize
-from nltk.stem.porter import PorterStemmer
 from nltk.stem.wordnet import WordNetLemmatizer
 
 from sklearn.base import BaseEstimator, TransformerMixin
@@ -20,8 +19,7 @@ def tokenize(text):
     no_stop_words = re.sub(r"[^a-zA-Z0-9]", " ", lower_text) 
     words = word_tokenize(no_stop_words)
     words = [w for w in words if w not in stopwords.words("english")]
-    stemmed = [PorterStemmer().stem(w) for w in words]
-    lemmed = [WordNetLemmatizer().lemmatize(w, pos='v') for w in stemmed]
+    lemmed = [WordNetLemmatizer().lemmatize(w, pos='v') for w in words]
     return lemmed
 
 class StartingVerbExtractor(BaseEstimator, TransformerMixin):

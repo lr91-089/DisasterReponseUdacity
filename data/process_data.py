@@ -49,14 +49,14 @@ def clean_data(df):
 
 
 def save_data(df, database_filename):
-     """Saves the dataframe into a database.
+    """Saves the dataframe into a database.
 
     Keyword arguments:
     df -- the data frame to be stored
     database_filename -- the database to store the dataframe
     """
-    engine = create_engine('sqlite:///'+database_filename)
-    df.to_sql('DisasterResponseTable', engine, index=False)
+    engine = create_engine('sqlite:///' + database_filename)
+    df.to_sql('DisasterResponseTable', engine, index=False, if_exists='replace')
 
 
 def main():

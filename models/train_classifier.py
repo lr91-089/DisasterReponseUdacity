@@ -42,7 +42,7 @@ def load_data(database_filepath):
 
 
 def build_model():
-    """Returns a machine learning pipeline for an AdaBoostClassifier with custome transformers."""
+    """Returns a grid search object for an AdaBoostClassifier with custome transformers."""
     pipeline = Pipeline([
         ('features', FeatureUnion([
 
@@ -56,11 +56,14 @@ def build_model():
 
         ('clf', MultiOutputClassifier(AdaBoostClassifier()))
     ])
-    return pipeline
+    parameters = {"clf__estimator__learning_rate" : [0.9,1.0],
+    }
+    cv = GridSearchCV(pipeline, param_grid=parameters, n_jobs=-1, verbose=2)
+    return cv
 
 
 def evaluate_model(model, X_test, Y_test, category_names):
-     """Evaluates the model on the test set and prints a classification report showing the main classification metrics.
+    """Evaluates the model on the test set and prints a classification report showing the main classification metrics.
 
     Keyword arguments:
     model -- the model to evaluate
