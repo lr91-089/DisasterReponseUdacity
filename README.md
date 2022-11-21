@@ -72,7 +72,7 @@ This webapp analyzes incoming messages with a machine learning algorithm in case
     * disaster_messages.csv
     * ```process_data.py```
 3. ```models```
-	* RAdaBoostclassifier.pkl
+	* DRAdaBoostclassifier.pkl
     * ```ML Pipeline Preparation.ipynb```
     * ```text_utils.py```
     * ```train_classifier.py```
